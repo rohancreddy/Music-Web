@@ -1,0 +1,11 @@
+body {
+    background: white url("images/natural-paper-background-texture-hd-5a0b.jpg");
+}
+
+.navbar {
+	border-radius: 0;
+}
+
+.navbar-brand{
+	font-family: 'Satisfy', cursive;
+}
