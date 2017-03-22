@@ -5,7 +5,16 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse_lazy
 from .models import Album
-from .forms import UserForm
+from .forms import UserForm, LoginForm
+
+
+class HomeView(generic.ListView):
+    form_class = LoginForm
+    template_name = 'music/home.html'
+
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name, {'form' : form})
 
 class IndexView(generic.ListView):
     template_name = 'music/index.html'
