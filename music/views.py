@@ -8,13 +8,23 @@ from .models import Album
 from .forms import UserForm, LoginForm
 
 
-class HomeView(generic.ListView):
+class HomeView(View):
     form_class = LoginForm
     template_name = 'music/home.html'
 
     def get(self, request):
-        form = self.form_class(None)
-        return render(request, self.template_name, {'form' : form})
+
+            username = request.GET['username']
+            password = request.GET['password']
+
+            user = authenticate(username=username, password=password)
+            if user is not None:
+
+                if user.is_active:
+                    login(request,user)
+                    return redirect('music:index')
+
+                return render(request, self.template_name, {'form' : form})
 
 class IndexView(generic.ListView):
     template_name = 'music/index.html'
